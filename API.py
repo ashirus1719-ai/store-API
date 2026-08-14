@@ -28,15 +28,15 @@ products_db = [
     {
         "id": 1,
         "name": "Черная футболка",
-        "description": "Сочная пицца с томатами и сыром",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkg61qOl9IfvCc4Q8-jwWkCIHPzyj8IWCB4dP47c8pzA&s=10",
+        "description": "Стильная футболка в минималистичном дизайне.",
+        "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=60",
         "price": 250
     },
     {
         "id": 2,
         "name": "Белая футболка",
-        "description": "Освежающий напиток 0.5л",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNdsm2KVJ6dUBq_E1_TY9fV_lovoZX1knJwV1N_X0mFA&s=10",
+        "description": "Легкая и удобная футболка для повседневной носки.",
+        "image": "https://images.unsplash.com/photo-1520975437132-68c902d30f3f?auto=format&fit=crop&w=800&q=60",
         "price": 250
     },
 ]
@@ -77,3 +77,12 @@ def create_product(item: ProductCreate):
     }
     products_db.insert(0, new_product)
     return new_product
+
+@app.delete("/products/{product_id}/")
+def delete_product(product_id: int):
+    global products_db
+    for i, product in enumerate(products_db):
+        if product["id"] == product_id:
+            products_db.pop(i)
+            return {"status": "deleted", "id": product_id}
+    raise HTTPException(status_code=404, detail="Product not found")
