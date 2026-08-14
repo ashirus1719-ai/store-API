@@ -5,15 +5,9 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # 1. Настройка CORS
-origins = [
-    "http://localhost:5173",  # Ваш локальный React (Vite)
-    "http://localhost:3000",  # Если используете Create React App или Next.js
-    "https://your-app-name.vercel.app",  # Замените на URL вашего проекта на Vercel
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # разрешает запросы с указанных сайтов (или ["*"] для всех)
+    allow_origins=["*"],  # разрешает запросы со всех сайтов
     allow_credentials=True,
     allow_methods=["*"],  # разрешает все методы (GET, POST, PUT, DELETE)
     allow_headers=["*"],  # разрешает любые заголовки
