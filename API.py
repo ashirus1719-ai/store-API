@@ -21,6 +21,7 @@ class Product(BaseModel):
     description: str
     image: str
     price: int
+    details: str = ""
 
 
 # Тестовый список товаров
@@ -30,14 +31,16 @@ products_db = [
         "name": "Черная футболка",
         "description": "Стильная футболка в минималистичном дизайне.",
         "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=60",
-        "price": 250
+        "price": 250,
+        "details": "Сделана из 100% хлопка. Удобна для ношения в любой сезон. Проверенное качество."
     },
     {
         "id": 2,
         "name": "Белая футболка",
         "description": "Легкая и удобная футболка для повседневной носки.",
         "image": "https://images.unsplash.com/photo-1520975437132-68c902d30f3f?auto=format&fit=crop&w=800&q=60",
-        "price": 250
+        "price": 250,
+        "details": "Универсальный белый цвет подходит ко всему. Приятная на ощупь ткань. Носится долго."
     },
 ]
 
@@ -52,6 +55,7 @@ class ProductCreate(BaseModel):
     description: str
     image: str
     price: int
+    details: str = ""
 
 @app.get("/products/")
 def get_products():
@@ -74,6 +78,7 @@ def create_product(item: ProductCreate):
         "description": item.description,
         "image": item.image,
         "price": item.price,
+        "details": item.details,
     }
     products_db.insert(0, new_product)
     return new_product
